@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instant Quote Calculator | Riyaz Insurance Co.</title>
+  <meta name="description" content="Calculate your customized insurance premium in 60 seconds with Riyaz Insurance interactive live calculator.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: {} } }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen relative overflow-x-hidden transition-colors">
+
+  <!-- Background Decorative Blobs -->
+  <div class="gradient-blob bg-sky-600/25 w-96 h-96 top-10 left-[-100px] rounded-full"></div>
+  <div class="gradient-blob bg-emerald-600/20 w-[500px] h-[500px] top-[400px] right-[-150px] rounded-full" style="animation-delay: -5s;"></div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="fixed top-24 right-5 z-50 flex flex-col gap-3 max-w-sm pointer-events-auto"></div>
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-40 w-full glass-panel border-b border-slate-800/80 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-500 via-teal-400 to-emerald-400 flex items-center justify-center text-slate-950 font-extrabold text-xl shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform">
+          RI
+        </div>
+        <div class="flex flex-col">
+          <span class="font-heading text-lg font-extrabold tracking-tight text-white flex items-center gap-2">
+            RIYAZ <span class="text-sky-400 text-[11px] px-2 py-0.5 rounded-full bg-sky-500/10 border border-sky-500/30">INSURANCE</span>
+          </span>
+          <span class="text-[10px] text-slate-400 tracking-widest font-semibold uppercase">Shaik Riyaz Assurance Group</span>
+        </div>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-sky-400 transition-colors">Home</a>
+        <a href="about.html" class="hover:text-sky-400 transition-colors">About Us</a>
+        <a href="products.html" class="hover:text-sky-400 transition-colors">Products</a>
+        <a href="quote.html" class="text-sky-400 font-semibold flex items-center gap-1"><i data-lucide="calculator" class="w-4 h-4"></i> Get Quote</a>
+        <a href="claims.html" class="hover:text-sky-400 transition-colors">Claims Center</a>
+        <a href="blog.html" class="hover:text-sky-400 transition-colors">Knowledge Base</a>
+        <a href="contact.html" class="hover:text-sky-400 transition-colors">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition-all">
+          <i id="themeIcon" data-lucide="moon" class="w-4 h-4 text-sky-400"></i>
+        </button>
+        <a href="portal.html" class="hidden sm:flex items-center gap-2 text-xs font-semibold px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 transition-all">
+          <i data-lucide="user" class="w-3.5 h-3.5 text-sky-400"></i> Member Portal
+        </a>
+        <a href="quote.html" class="shimmer-glow px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 text-slate-950 font-bold text-xs shadow-lg shadow-sky-500/20 hover:scale-105 transition-all">
+          Get Quote
+        </a>
+        <button id="mobileMenuBtn" class="lg:hidden p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-800 bg-slate-950/98 px-5 py-4 space-y-2 text-sm">
+      <a href="index.html" class="block px-4 py-2.5 rounded-xl text-slate-300 hover:bg-slate-900">Home</a>
+      <a href="about.html" class="block px-4 py-2.5 rounded-xl text-slate-300 hover:bg-slate-900">About Us</a>
+      <a href="products.html" class="block px-4 py-2.5 rounded-xl text-slate-300 hover:bg-slate-900">Products & Plans</a>
+      <a href="quote.html" class="block px-4 py-2.5 rounded-xl text-sky-400 bg-sky-500/10 font-semibold">Instant Quote Calculator</a>
+      <a href="claims.html" class="block px-4 py-2.5 rounded-xl text-slate-300 hover:bg-slate-900">Claims & Live Tracker</a>
+      <a href="blog.html" class="block px-4 py-2.5 rounded-xl text-slate-300 hover:bg-slate-900">Knowledge Base & Blog</a>
+      <a href="contact.html" class="block px-4 py-2.5 rounded-xl text-slate-300 hover:bg-slate-900">Contact & Branches</a>
+      <a href="portal.html" class="block px-4 py-2.5 rounded-xl text-sky-300 hover:bg-slate-900">Member Portal Dashboard</a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="py-12 border-b border-slate-800/60 relative z-10 text-center">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
+        Instant Premium Calculation Engine
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-white">
+        Compute Your Custom Premium in <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-teal-300 to-emerald-400">60 Seconds</span>
+      </h1>
+      <p class="text-slate-400 text-sm max-w-xl mx-auto">
+        Transparent real-time algorithmic quotes, zero sales spam calls, and instant downloadable PDF proposals.
+      </p>
+    </div>
+  </section>
+
+  <!-- MAIN CALCULATOR WIZARD -->
+  <section class="py-16 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        
+        <!-- Left Configurator Form -->
+        <div class="lg:col-span-7 glass-panel rounded-3xl p-6 sm:p-8 space-y-8 border border-slate-800">
+          
+          <!-- Step 1: Category Selector (6 Options) -->
+          <div class="space-y-3">
+            <label class="text-xs font-bold uppercase tracking-wider text-sky-400 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center text-[10px]">1</span>
+              Select Insurance Line
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <button type="button" data-type="health" class="quote-type-btn p-4 rounded-2xl border border-sky-500 bg-sky-600 text-white font-semibold text-xs flex flex-col items-center gap-2 transition-all shadow-lg shadow-sky-500/20">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i>
+                <span>Health & Family</span>
+              </button>
+              <button type="button" data-type="auto" class="quote-type-btn p-4 rounded-2xl border border-slate-800 bg-slate-900/90 text-slate-300 font-semibold text-xs flex flex-col items-center gap-2 hover:border-slate-700 transition-all">
+                <i data-lucide="car" class="w-5 h-5"></i>
+                <span>Motor Auto & EV</span>
+              </button>
+              <button type="button" data-type="life" class="quote-type-btn p-4 rounded-2xl border border-slate-800 bg-slate-900/90 text-slate-300 font-semibold text-xs flex flex-col items-center gap-2 hover:border-slate-700 transition-all">
+                <i data-lucide="shield" class="w-5 h-5"></i>
+                <span>Term Life & Legacy</span>
+              </button>
+              <button type="button" data-type="home" class="quote-type-btn p-4 rounded-2xl border border-slate-800 bg-slate-900/90 text-slate-300 font-semibold text-xs flex flex-col items-center gap-2 hover:border-slate-700 transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i>
+                <span>Home & Property</span>
+              </button>
+              <button type="button" data-type="business" class="quote-type-btn p-4 rounded-2xl border border-slate-800 bg-slate-900/90 text-slate-300 font-semibold text-xs flex flex-col items-center gap-2 hover:border-slate-700 transition-all">
+                <i data-lucide="briefcase" class="w-5 h-5"></i>
+                <span>Commercial & Cyber</span>
+              </button>
+              <button type="button" data-type="travel" class="quote-type-btn p-4 rounded-2xl border border-slate-800 bg-slate-900/90 text-slate-300 font-semibold text-xs flex flex-col items-center gap-2 hover:border-slate-700 transition-all">
+                <i data-lucide="plane" class="w-5 h-5"></i>
+                <span>Global Travel</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Tier Selector -->
+          <div class="space-y-3">
+            <label class="text-xs font-bold uppercase tracking-wider text-sky-400 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center text-[10px]">2</span>
+              Select Protection Tier
+            </label>
+            <div class="grid grid-cols-3 gap-3">
+              <button type="button" data-tier="silver" class="quote-tier-btn p-3 rounded-xl border border-slate-800 bg-slate-900 text-slate-300 text-xs font-semibold hover:border-slate-700 transition-all text-center">
+                Silver Essential
+              </button>
+              <button type="button" data-tier="gold" class="quote-tier-btn p-3 rounded-xl border border-sky-500 bg-sky-600/20 text-sky-300 text-xs font-semibold transition-all text-center">
+                Gold Advantage
+              </button>
+              <button type="button" data-tier="diamond" class="quote-tier-btn p-3 rounded-xl border border-slate-800 bg-slate-900 text-slate-300 text-xs font-semibold hover:border-slate-700 transition-all text-center">
+                Diamond Global
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: Sliders and Controls -->
+          <div class="space-y-6">
+            
+            <div class="space-y-2">
+              <div class="flex justify-between text-xs sm:text-sm">
+                <span class="text-slate-300 font-medium">Primary Policyholder Age</span>
+                <span class="text-sky-400 font-bold"><span id="quoteAgeValue">30</span> Years</span>
+              </div>
+              <input type="range" id="quoteAge" min="18" max="75" value="30" class="w-full h-2 bg-slate-800 rounded-lg cursor-pointer accent-sky-400">
+              <div class="flex justify-between text-[10px] text-slate-500">
+                <span>18 yrs</span>
+                <span>45 yrs</span>
+                <span>75 yrs</span>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex justify-between text-xs sm:text-sm">
+                <span class="text-slate-300 font-medium">Sum Insured Protection Amount</span>
+                <span class="text-emerald-400 font-bold" id="quoteInsuredValue">₹25 Lakhs</span>
+              </div>
+              <input type="range" id="quoteInsured" min="500000" max="20000000" step="500000" value="2500000" class="w-full h-2 bg-slate-800 rounded-lg cursor-pointer accent-emerald-400">
+              <div class="flex justify-between text-[10px] text-slate-500">
+                <span>₹5 Lakhs</span>
+                <span>₹1 Crore</span>
+                <span>₹2 Crores</span>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-xs sm:text-sm text-slate-300 font-medium">Family Members Covered</label>
+              <select id="quoteMembers" class="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs sm:text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-sky-500">
+                <option value="1">Individual Policyholder (1 Person)</option>
+                <option value="2">Couple (Self + Spouse)</option>
+                <option value="3">Family Floater (2 Adults + 1 Child)</option>
+                <option value="4">Family Floater (2 Adults + 2 Children)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Step 4: Optional Add-on Riders -->
+          <div class="space-y-3">
+            <label class="text-xs font-bold uppercase tracking-wider text-sky-400 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center text-[10px]">3</span>
+              Optional Protection Riders (₹149 / month each)
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <label class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer hover:border-slate-700 transition-colors">
+                <input type="checkbox" value="critical" class="quote-addon rounded text-sky-500 focus:ring-0">
+                <span class="text-slate-300">Critical Illness Lump Sum (+₹149/mo)</span>
+              </label>
+              <label class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer hover:border-slate-700 transition-colors">
+                <input type="checkbox" value="accident" class="quote-addon rounded text-sky-500 focus:ring-0">
+                <span class="text-slate-300">Accidental Disability Shield (+₹149/mo)</span>
+              </label>
+              <label class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer hover:border-slate-700 transition-colors">
+                <input type="checkbox" value="hospital_cash" class="quote-addon rounded text-sky-500 focus:ring-0">
+                <span class="text-slate-300">Hospital Daily Cash Allowance (+₹149/mo)</span>
+              </label>
+              <label class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer hover:border-slate-700 transition-colors">
+                <input type="checkbox" value="international" class="quote-addon rounded text-sky-500 focus:ring-0">
+                <span class="text-slate-300">Global Emergency Medical Evac (+₹149/mo)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Step 5: Promo Code Discount -->
+          <div class="pt-2 border-t border-slate-800/80 space-y-2">
+            <label class="text-xs text-slate-400 font-semibold">Have a Promotional Code?</label>
+            <div class="flex gap-2">
+              <input 
+                type="text" 
+                id="promoCodeInput" 
+                placeholder="Try code: RIYAZ20" 
+                class="flex-1 bg-slate-900 border border-slate-700 text-white uppercase text-xs rounded-xl px-4 py-2.5 focus:outline-none focus:border-sky-500"
+              />
+              <button 
+                type="button" 
+                id="applyPromoBtn" 
+                class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-400 text-xs font-bold transition-all"
+              >
+                Apply Code
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Summary Sticky Panel -->
+        <div class="lg:col-span-5">
+          <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6 sticky top-28 border border-sky-500/40 shadow-2xl">
+            
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-sky-400 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Computed Rate (INR)
+              </span>
+              <span class="text-[10px] px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">
+                30-DAY RATE LOCK
+              </span>
+            </div>
+
+            <!-- Premium Display -->
+            <div class="space-y-1">
+              <div class="flex items-baseline gap-2">
+                <span id="monthlyPremium" class="text-4xl sm:text-5xl font-extrabold text-white font-heading">₹799</span>
+                <span class="text-slate-400 text-sm font-medium">/ month</span>
+              </div>
+              <div class="text-xs text-slate-400">
+                or <strong id="annualPremium" class="text-emerald-400 font-semibold">₹8,629</strong> billed annually (10% Off)
+              </div>
+            </div>
+
+            <!-- Policy Coverage Summary Badges -->
+            <div class="space-y-3 pt-4 border-t border-slate-800 text-xs text-slate-300">
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Cashless Admission 10k+ Hospitals</span>
+                <span class="text-slate-400 font-medium">Included</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Zero-Paperwork E-Policy</span>
+                <span class="text-slate-400 font-medium">Instant E-Delivery</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> 24/7 AI Concierge Desk</span>
+                <span class="text-emerald-400 font-bold">Active</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Claim CSR Guarantee</span>
+                <span class="text-sky-400 font-bold">99.8% Ratio</span>
+              </div>
+            </div>
+
+            <button id="saveQuoteBtn" class="w-full py-4 rounded-2xl bg-gradient-to-r from-sky-500 to-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow-xl shadow-sky-500/25 hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
+              <i data-lucide="file-check" class="w-4 h-4"></i> Generate Digital Policy Proposal
+            </button>
+
+            <!-- Customer Trust Callout with Real Photo -->
+            <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-center gap-3">
+              <img 
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" 
+                alt="Priya Desai" 
+                class="w-10 h-10 rounded-full object-cover border border-emerald-400 shrink-0"
+              />
+              <div class="text-[11px] text-slate-300 leading-tight">
+                <span class="text-white font-bold block">"Calculated and approved in under 2 minutes."</span>
+                <span class="text-slate-400 text-[10px]">Priya D. • Verified Member</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SAVED QUOTE / PROPOSAL MODAL -->
+  <div id="quoteSummaryModal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">
+    <div class="glass-panel rounded-3xl p-6 sm:p-8 max-w-lg w-full border border-sky-500/40 space-y-6 shadow-2xl" id="printableArea">
+      
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-emerald-400 flex items-center justify-center text-slate-950 font-extrabold text-sm">RI</div>
+          <div>
+            <h3 class="text-base font-bold text-white">Digital Policy Proposal</h3>
+            <p class="text-xs text-slate-400">Riyaz Insurance Group • Ref: <span id="modalQuoteRef" class="text-sky-400 font-mono font-bold"></span></p>
+          </div>
+        </div>
+        <button id="closeQuoteModal" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 space-y-4">
+        <div id="modalQuoteDetails" class="space-y-3 text-xs text-slate-300"></div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-end gap-3 pt-2">
+        <button onclick="window.print()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-2">
+          <i data-lucide="printer" class="w-3.5 h-3.5"></i> Print / PDF
+        </button>
+        <a href="portal.html" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 text-slate-950 font-bold text-xs shadow-md">
+          Proceed to Member Activation &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 border-t border-slate-800 text-slate-400 py-12 relative z-10 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+        <div class="col-span-2 space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-emerald-400 flex items-center justify-center text-slate-950 font-extrabold text-base">RI</div>
+            <div>
+              <div class="text-white font-bold text-sm">RIYAZ INSURANCE CO.</div>
+              <div class="text-[11px] text-slate-400">Shaik Riyaz Assurance Group</div>
+            </div>
+          </div>
+          <p class="text-slate-400 leading-relaxed max-w-sm">Empowering families and businesses with transparent, tech-driven coverage. Founded by Riyaz in 2026.</p>
+        </div>
+        <div class="space-y-2">
+          <div class="text-white font-semibold mb-3">Products</div>
+          <a href="products.html#health" class="block hover:text-white transition-colors">Health Cover</a>
+          <a href="products.html#auto" class="block hover:text-white transition-colors">Motor Auto</a>
+          <a href="products.html#life" class="block hover:text-white transition-colors">Term Life</a>
+          <a href="products.html#home" class="block hover:text-white transition-colors">Home & Property</a>
+        </div>
+        <div class="space-y-2">
+          <div class="text-white font-semibold mb-3">Company</div>
+          <a href="about.html" class="block hover:text-white transition-colors">About Us</a>
+          <a href="claims.html" class="block hover:text-white transition-colors">Claims Portal</a>
+          <a href="portal.html" class="block hover:text-white transition-colors">Customer Portal</a>
+          <a href="blog.html" class="block hover:text-white transition-colors">Insurance Blog</a>
+        </div>
+        <div class="space-y-2">
+          <div class="text-white font-semibold mb-3">24/7 Helpline</div>
+          <a href="contact.html" class="block hover:text-white transition-colors">Contact Center</a>
+          <p class="text-white font-bold">+91 (40) 6699-RIYAZ</p>
+          <p>support@riyazinsurance.com</p>
+        </div>
+      </div>
+      <div class="border-t border-slate-900 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-slate-500">
+        <div>&copy; 2026 Riyaz Insurance Co. Founded by Shaik Riyaz. All rights reserved.</div>
+        <div class="flex gap-4">
+          <a href="#" class="hover:text-slate-400">Privacy Policy</a>
+          <a href="#" class="hover:text-slate-400">Terms of Service</a>
+          <a href="#" class="hover:text-slate-400">IRDAI Compliance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    lucide.createIcons();
+    document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+      document.getElementById('mobileMenu')?.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

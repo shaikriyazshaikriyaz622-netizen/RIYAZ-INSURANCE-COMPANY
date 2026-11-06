@@ -1,0 +1,314 @@
+/* ==========================================================================
+   RIYAZ INSURANCE - Global Styles & Design System
+   Pure CSS3 with Glassmorphism, Responsive Typography & Custom Animations
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Space+Grotesk:wght@500;600;700;800&display=swap');
+
+:root {
+  --primary: #0284c7;
+  --primary-hover: #0369a1;
+  --primary-light: rgba(2, 132, 199, 0.12);
+  --accent: #10b981;
+  --accent-glow: rgba(16, 185, 129, 0.20);
+  --gold: #f59e0b;
+  --purple: #8b5cf6;
+  
+  --bg-main: #0b1120;
+  --bg-surface: #111a2e;
+  --bg-surface-elevated: #18243e;
+  
+  --glass-bg: rgba(17, 26, 46, 0.88);
+  --glass-border: rgba(148, 163, 184, 0.12);
+  --glass-border-hover: rgba(56, 189, 248, 0.40);
+  --card-bg: rgba(17, 26, 46, 0.78);
+  
+  --text-main: #f8fafc;
+  --text-muted: #cbd5e1;
+  --text-dim: #94a3b8;
+  
+  --shadow-glow: 0 12px 30px -8px rgba(2, 132, 199, 0.25);
+}
+
+body.light-mode {
+  --bg-main: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #f1f5f9;
+  
+  --glass-bg: rgba(255, 255, 255, 0.94);
+  --glass-border: rgba(203, 213, 225, 0.6);
+  --glass-border-hover: rgba(2, 132, 199, 0.5);
+  --card-bg: rgba(255, 255, 255, 0.98);
+  
+  --text-main: #0f172a;
+  --text-muted: #334155;
+  --text-dim: #64748b;
+  
+  --shadow-glow: 0 10px 25px -5px rgba(2, 132, 199, 0.15);
+}
+
+/* Base resets & typography */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-main);
+  background-image: 
+    radial-gradient(at 50% 0%, rgba(14, 165, 233, 0.08) 0px, transparent 60%),
+    radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.05) 0px, transparent 50%);
+  background-repeat: no-repeat;
+  color: var(--text-main);
+  scroll-behavior: smooth;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+body.light-mode {
+  background-color: #f8fafc;
+  background-image: 
+    radial-gradient(at 50% 0%, rgba(2, 132, 199, 0.05) 0px, transparent 60%),
+    radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.04) 0px, transparent 50%);
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Light mode specific element adjustments */
+body.light-mode .text-white {
+  color: #0f172a !important;
+}
+body.light-mode .text-slate-100 {
+  color: #1e293b !important;
+}
+body.light-mode .text-slate-200 {
+  color: #334155 !important;
+}
+body.light-mode .text-slate-300 {
+  color: #475569 !important;
+}
+body.light-mode .text-slate-400 {
+  color: #64748b !important;
+}
+body.light-mode .bg-slate-950 {
+  background-color: #f8fafc !important;
+}
+body.light-mode .bg-slate-900 {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+body.light-mode .bg-slate-900\/90,
+body.light-mode .bg-slate-900\/80,
+body.light-mode .bg-slate-900\/60,
+body.light-mode .bg-slate-900\/40 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+body.light-mode .bg-slate-800 {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+}
+body.light-mode .border-slate-800,
+body.light-mode .border-slate-800\/80,
+body.light-mode .border-slate-800\/60,
+body.light-mode .border-slate-700 {
+  border-color: #e2e8f0 !important;
+}
+body.light-mode .glass-panel {
+  background: var(--glass-bg);
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+body.light-mode .glass-card {
+  background: var(--card-bg);
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+body.light-mode .glass-card:hover {
+  box-shadow: 0 16px 30px -5px rgba(2, 132, 199, 0.12);
+  border-color: rgba(2, 132, 199, 0.35) !important;
+}
+
+/* Glassmorphism & Neat Card Classes */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+}
+
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow);
+  border-color: var(--glass-border-hover);
+}
+
+/* Image Card Hover Zoom */
+.img-zoom-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.img-zoom-container img {
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.img-zoom-container:hover img {
+  transform: scale(1.04);
+}
+
+/* Subtle Header Glow Blobs */
+.gradient-blob {
+  position: absolute;
+  filter: blur(80px);
+  opacity: 0.20;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Shimmer pulse effect */
+.shimmer-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-glow::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 70%
+  );
+  transform: rotate(30deg);
+  animation: shimmer 5s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-120%) rotate(30deg); }
+  100% { transform: translateX(120%) rotate(30deg); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #090d16;
+}
+body.light-mode ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0284c7;
+}
+
+/* Range input styled */
+input[type=range] {
+  accent-color: #0284c7;
+  height: 6px;
+  border-radius: 3px;
+  background: #334155;
+}
+
+/* 3D Flip Card for Digital Insurance ID Card */
+.flip-card {
+  background-color: transparent;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flip-card.is-flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1.5rem;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Toast Animations */
+@keyframes slideInRight {
+  from { transform: translateX(120%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.toast-enter {
+  animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Pulse badge ring */
+.pulse-ring {
+  position: relative;
+}
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  background: inherit;
+  opacity: 0.6;
+  animation: pulseEffect 2s infinite;
+  z-index: -1;
+}
+
+@keyframes pulseEffect {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* Print styles for digital proposals and insurance ID cards */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printableArea, #printableArea * {
+    visibility: visible;
+  }
+  #printableArea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}

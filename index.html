@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riyaz Insurance | Next-Gen Digital Assurance & Protection</title>
+  <meta name="description" content="Riyaz Insurance Co. (Shaik Riyaz Assurance Group) – 100% paperless, transparent, instant coverage for Health, Motor Auto, Term Life, Home Property & Commercial Business.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: {} } }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen relative overflow-x-hidden">
+
+  <!-- Floating Glow Blobs -->
+  <div class="gradient-blob bg-sky-600/25 w-96 h-96 top-10 left-[-100px] rounded-full"></div>
+  <div class="gradient-blob bg-emerald-600/20 w-[500px] h-[500px] top-[450px] right-[-150px] rounded-full"></div>
+
+  <!-- Toast Notification -->
+  <div id="toastContainer" class="fixed top-24 right-5 z-50 flex flex-col gap-3 max-w-sm pointer-events-auto"></div>
+
+  <!-- STICKY TOP NAVBAR -->
+  <header class="sticky top-0 z-40 w-full glass-panel border-b border-slate-800/80 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-500 via-teal-400 to-emerald-400 flex items-center justify-center text-slate-950 font-extrabold text-xl shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform">
+          RI
+        </div>
+        <div class="flex flex-col">
+          <span class="font-heading text-lg font-extrabold tracking-tight text-white flex items-center gap-2">
+            RIYAZ <span class="text-sky-400 text-[11px] px-2 py-0.5 rounded-full bg-sky-500/10 border border-sky-500/30">INSURANCE</span>
+          </span>
+          <span class="text-[10px] text-slate-400 tracking-widest font-semibold uppercase">Shaik Riyaz Assurance Group</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-300">
+        <a href="index.html" class="text-sky-400 font-semibold flex items-center gap-1"><i data-lucide="home" class="w-4 h-4"></i> Home</a>
+        <a href="about.html" class="hover:text-sky-400 transition-colors">About Us</a>
+        <a href="products.html" class="hover:text-sky-400 transition-colors">Products</a>
+        <a href="quote.html" class="hover:text-sky-400 transition-colors">Get Quote</a>
+        <a href="claims.html" class="hover:text-sky-400 transition-colors">Claims Center</a>
+        <a href="blog.html" class="hover:text-sky-400 transition-colors">Knowledge Base</a>
+        <a href="contact.html" class="hover:text-sky-400 transition-colors">Contact</a>
+      </nav>
+
+      <!-- Action Nav Buttons -->
+      <div class="flex items-center gap-3">
+        <a href="Shaik_Riyaz_Insurance_Website.zip" download class="hidden md:flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-sky-400 transition-all" title="Download Complete Website Package">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i>
+          <span>Website Package</span>
+        </a>
+        <button id="themeToggle" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition-all shadow-sm" title="Toggle Light/Dark Theme">
+          <i id="themeIcon" data-lucide="moon" class="w-4 h-4 text-sky-400"></i>
+        </button>
+        <a href="portal.html" class="hidden sm:flex items-center gap-2 text-xs font-semibold px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 transition-all">
+          <i data-lucide="user" class="w-3.5 h-3.5 text-sky-400"></i> Member Portal
+        </a>
+        <a href="quote.html" class="shimmer-glow px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 text-slate-950 font-bold text-xs shadow-lg shadow-sky-500/20 hover:scale-105 transition-all">
+          Calculate Premium
+        </a>
+        <!-- Mobile Toggle Button -->
+        <button id="mobileMenuBtn" class="lg:hidden p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-800 bg-slate-950/98 px-5 py-4 space-y-2 text-sm">
+      <a href="index.html" class="block px-4 py-2.5 rounded-xl text-sky-400 bg-sky-500/10 font-semibold">Home</a>
+      <a href="about.html" class="block px-4 py-2.5 rounded-xl text-slate-300 hover:bg-slate-900">About Us</a>
+      <a href="products.html" class="block px-4 py-2.5 rounded-xl text-slate-300 hover:bg-slate-900">Products & Plans</a>
+      <a href="quote.html" class="block px-4 py-2.5 rounded-xl text-slate-300 hover:bg-slate-900">Instant Quote Calculator</a>
+      <a href="claims.html" class="block px-4 py-2.5 rounded-xl text-slate-300 hover:bg-slate-900">Claims & Live Tracker</a>
+      <a href="blog.html" class="block px-4 py-2.5 rounded-xl text-slate-300 hover:bg-slate-900">Knowledge Base & Blog</a>
+      <a href="contact.html" class="block px-4 py-2.5 rounded-xl text-slate-300 hover:bg-slate-900">Contact & Branches</a>
+      <a href="portal.html" class="block px-4 py-2.5 rounded-xl text-sky-300 hover:bg-slate-900">Member Portal Dashboard</a>
+      <a href="Shaik_Riyaz_Insurance_Website.zip" download class="block px-4 py-2.5 rounded-xl text-emerald-400 bg-emerald-500/10 font-semibold">⬇ Download Website Folder (ZIP)</a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION WITH REAL PHOTOGRAPHY -->
+  <section class="relative pt-16 pb-24 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Hero Content -->
+        <div class="lg:col-span-7 space-y-7">
+          <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-semibold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            Tech-First Protection Ecosystem · Founded by Shaik Riyaz
+          </div>
+          
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1]">
+            Protecting What Matters Most with 
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-teal-300 to-emerald-400"> Riyaz Insurance</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
+            Experience 100% digital assurance: zero paperwork, automated AI claim settlement in under 15 minutes, and transparent coverage tailored for your family, vehicle, and wealth.
+          </p>
+
+          <div class="flex flex-wrap gap-4 pt-2">
+            <a href="quote.html" class="px-8 py-4 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 hover:from-sky-400 hover:to-emerald-300 text-slate-950 font-bold text-sm shadow-xl shadow-sky-500/25 flex items-center gap-2 transition-all hover:scale-105">
+              <span>Get Instant Quote</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="claims.html" class="px-7 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-sm flex items-center gap-2 transition-all">
+              <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+              <span>File or Track a Claim</span>
+            </a>
+            <a href="Shaik_Riyaz_Insurance_Website.zip" download class="px-6 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-sky-500/40 text-sky-400 font-semibold text-sm flex items-center gap-2 transition-all shadow-md">
+              <i data-lucide="download" class="w-4 h-4"></i>
+              <span>Download Folder (ZIP)</span>
+            </a>
+          </div>
+
+          <!-- Trust KPI Badges -->
+          <div class="pt-8 border-t border-slate-800 grid grid-cols-3 gap-6 text-left">
+            <div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-white">99.8%</div>
+              <div class="text-xs text-slate-400 mt-0.5 font-medium">Claim Settlement Ratio</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-sky-400">10M+</div>
+              <div class="text-xs text-slate-400 mt-0.5 font-medium">Insured Members</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400">&lt;15 min</div>
+              <div class="text-xs text-slate-400 mt-0.5 font-medium">Cashless Hospital Disbursal</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Hero Visual with Founder CEO Portrait & Live Verification Card -->
+        <div class="lg:col-span-5">
+          <div class="glass-card rounded-3xl p-4 sm:p-5 border border-sky-500/40 shadow-2xl space-y-4">
+            
+            <!-- Full Uncropped Founder Photo Card -->
+            <div class="relative rounded-2xl overflow-hidden border border-slate-700/80 shadow-lg bg-slate-900">
+              <img 
+                src="riyaz_founder.jpg" 
+                alt="Shaik Riyaz - CEO & Founder, SecureLife Insurance Pvt. Ltd." 
+                class="w-full h-auto max-h-[460px] object-contain rounded-2xl block mx-auto"
+              />
+              <div class="absolute top-3 right-3 bg-emerald-500 text-slate-950 text-[10px] font-extrabold px-3 py-1 rounded-full shadow-lg flex items-center gap-1 backdrop-blur-sm">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> OFFICIAL ASSURANCE
+              </div>
+            </div>
+
+            <!-- Profile & Live Policyholder Verification Details -->
+            <div class="space-y-3 pt-1">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-sm font-extrabold text-white flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Shaik Riyaz
+                  </h3>
+                  <p class="text-xs text-sky-400 font-medium">CEO & Founder · SecureLife Insurance Pvt. Ltd.</p>
+                </div>
+                <span class="text-[10px] px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-300 font-bold border border-sky-500/30">
+                  IRDAI LICENSED
+                </span>
+              </div>
+
+              <!-- Quick Policy Benefit Badges -->
+              <div class="bg-slate-950/80 rounded-2xl p-3.5 border border-slate-800 space-y-2">
+                <div class="flex justify-between text-xs">
+                  <span class="text-slate-400 font-medium">Flagship Family Cover</span>
+                  <strong class="text-emerald-400 font-bold">₹1 Crore (100% Cashless)</strong>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2">
+                  <div class="bg-gradient-to-r from-sky-400 to-emerald-400 h-full w-[95%] rounded-full"></div>
+                </div>
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>Zero Deductible</span>
+                  <span>10,000+ Network Hospitals</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2 text-[11px]">
+                <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-1.5">
+                  <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0"></i>
+                  <span>Zero Copay Option</span>
+                </div>
+                <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-1.5">
+                  <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0"></i>
+                  <span>&lt;15 Min Claims</span>
+                </div>
+              </div>
+
+              <a href="quote.html" class="block w-full text-center py-3 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 hover:from-sky-400 hover:to-emerald-300 text-slate-950 font-extrabold text-xs shadow-lg shadow-sky-500/20 transition-all">
+                Calculate Your Instant Quote (₹) &rarr;
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 REAL PRODUCT SHOWCASE CARDS WITH REAL PHOTOS (IN RUPEES) -->
+  <section class="py-20 border-t border-slate-800/60 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+        <div class="space-y-3">
+          <span class="text-xs font-bold uppercase tracking-widest text-sky-400 bg-sky-500/10 px-3.5 py-1.5 rounded-full border border-sky-500/20">
+            Our Insurance Portfolio
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Comprehensive Protection for Every Need</h2>
+          <p class="text-slate-400 text-sm max-w-xl">Curated plans designed for modern lifestyle, medical safety, automobile mobility, and business prosperity in India.</p>
+        </div>
+        <a href="products.html" class="px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-bold flex items-center gap-2 self-start md:self-auto transition-all">
+          <span>View All Product Tiers</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 text-sky-400"></i>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- 1. Health -->
+        <div class="glass-card rounded-3xl overflow-hidden border border-slate-800 flex flex-col group">
+          <div class="img-zoom-container h-48 relative">
+            <img 
+              src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80" 
+              alt="Health Insurance - Doctor consultation" 
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute top-3 left-3 bg-sky-500/90 text-slate-950 font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase">Health</div>
+            <div class="absolute bottom-3 right-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-bold text-emerald-400 border border-slate-700">From ₹499/mo</div>
+          </div>
+          <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-white group-hover:text-sky-400 transition-colors">Comprehensive Health Shield</h3>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">Cashless admission across 10,000+ multi-specialty hospitals, zero room rent capping, and critical illness riders.</p>
+            </div>
+            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+              <span class="text-slate-400">100% Restoration Cover</span>
+              <a href="quote.html" class="text-sky-400 font-bold hover:underline">Calculate &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Auto -->
+        <div class="glass-card rounded-3xl overflow-hidden border border-slate-800 flex flex-col group">
+          <div class="img-zoom-container h-48 relative">
+            <img 
+              src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80" 
+              alt="Motor Auto Insurance - Luxury electric sports vehicle" 
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute top-3 left-3 bg-emerald-500/90 text-slate-950 font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase">Motor Auto</div>
+            <div class="absolute bottom-3 right-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-bold text-emerald-400 border border-slate-700">From ₹799/mo</div>
+          </div>
+          <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">Motor Auto & EV Elite</h3>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">Zero-depreciation protection, battery surge rider for electric vehicles, and 24/7 roadside emergency breakdown assist.</p>
+            </div>
+            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+              <span class="text-slate-400">3-Hour Survey Approval</span>
+              <a href="quote.html" class="text-emerald-400 font-bold hover:underline">Calculate &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Term Life -->
+        <div class="glass-card rounded-3xl overflow-hidden border border-slate-800 flex flex-col group">
+          <div class="img-zoom-container h-48 relative">
+            <img 
+              src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?auto=format&fit=crop&w=800&q=80" 
+              alt="Term Life Insurance - Smiling multigeneration family" 
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute top-3 left-3 bg-purple-500/90 text-slate-950 font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase">Life & Wealth</div>
+            <div class="absolute bottom-3 right-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-bold text-emerald-400 border border-slate-700">From ₹499/mo</div>
+          </div>
+          <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-white group-hover:text-purple-400 transition-colors">Term Life & Wealth Legacy</h3>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">Guaranteed financial safety net up to ₹2 Crore for your spouse and children with terminal illness advance benefit.</p>
+            </div>
+            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+              <span class="text-slate-400">Tax Exempt 80C Payouts</span>
+              <a href="quote.html" class="text-purple-400 font-bold hover:underline">Calculate &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Home Property -->
+        <div class="glass-card rounded-3xl overflow-hidden border border-slate-800 flex flex-col group">
+          <div class="img-zoom-container h-48 relative">
+            <img 
+              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" 
+              alt="Home Property Insurance - Modern architecture villa" 
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute top-3 left-3 bg-amber-500/90 text-slate-950 font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase">Property</div>
+            <div class="absolute bottom-3 right-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-bold text-emerald-400 border border-slate-700">From ₹399/mo</div>
+          </div>
+          <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-white group-hover:text-amber-400 transition-colors">Home & Structure Shield</h3>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">Comprehensive fire, flood, burglary, and electronic home contents cover with instant temporary housing reimbursement.</p>
+            </div>
+            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+              <span class="text-slate-400">All-Risk Appliance Cover</span>
+              <a href="quote.html" class="text-amber-400 font-bold hover:underline">Calculate &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Commercial Business -->
+        <div class="glass-card rounded-3xl overflow-hidden border border-slate-800 flex flex-col group">
+          <div class="img-zoom-container h-48 relative">
+            <img 
+              src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" 
+              alt="Business Insurance - Modern corporate technology meeting" 
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute top-3 left-3 bg-indigo-500/90 text-slate-950 font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase">Commercial</div>
+            <div class="absolute bottom-3 right-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-bold text-emerald-400 border border-slate-700">From ₹1,999/mo</div>
+          </div>
+          <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors">Commercial & Cyber Shield</h3>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">Group employee health covers, cybersecurity ransomware protection, and Director & Officers liability assurance.</p>
+            </div>
+            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+              <span class="text-slate-400">Tailored SME Packages</span>
+              <a href="quote.html" class="text-indigo-400 font-bold hover:underline">Calculate &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Travel -->
+        <div class="glass-card rounded-3xl overflow-hidden border border-slate-800 flex flex-col group">
+          <div class="img-zoom-container h-48 relative">
+            <img 
+              src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80" 
+              alt="Travel Insurance - Airport passport and globe" 
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute top-3 left-3 bg-rose-500/90 text-slate-950 font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase">Global Travel</div>
+            <div class="absolute bottom-3 right-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-bold text-emerald-400 border border-slate-700">From ₹249/trip</div>
+          </div>
+          <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-white group-hover:text-rose-400 transition-colors">Worldwide Travel & Medical</h3>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">International emergency medical cashless cover in 180+ countries, flight delay compensation, and lost baggage claims.</p>
+            </div>
+            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+              <span class="text-slate-400">Schengen Visa Compliant</span>
+              <a href="quote.html" class="text-rose-400 font-bold hover:underline">Calculate &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MULTI-POLICY BUNDLE SAVINGS VISUALIZER WITH CHART.JS (INR) -->
+  <section class="py-20 bg-slate-900/40 border-t border-slate-800/60 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="text-center space-y-4 max-w-3xl mx-auto">
+        <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3.5 py-1.5 rounded-full border border-emerald-500/20">
+          Smart Multi-Policy Savings (₹)
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Save Up to 35% with Riyaz Bundles</h2>
+        <p class="text-slate-400 text-sm">Bundle Health, Motor, and Home policies into one single automated dashboard and unlock cumulative annual cash savings.</p>
+      </div>
+
+      <!-- Chart & Comparison Container -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <div class="lg:col-span-7 glass-panel rounded-3xl p-6 sm:p-8 border border-slate-800 space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
+            <div>
+              <h3 class="text-base font-bold text-white">Annual Cost Comparison (in Rupees ₹)</h3>
+              <p class="text-xs text-slate-400">Traditional Insurers vs. Riyaz Assurance Bundles</p>
+            </div>
+            <!-- Tenure Switcher -->
+            <div class="flex items-center gap-1.5 p-1 rounded-xl bg-slate-900 border border-slate-800 text-xs">
+              <button data-years="1" class="savings-tenure-btn px-3 py-1.5 rounded-lg bg-sky-600 text-white font-semibold transition-all">1 Year</button>
+              <button data-years="3" class="savings-tenure-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white font-semibold transition-all">3 Years</button>
+              <button data-years="5" class="savings-tenure-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white font-semibold transition-all">5 Years</button>
+            </div>
+          </div>
+
+          <div class="h-72 w-full relative">
+            <canvas id="savingsChart"></canvas>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 space-y-4">
+          <div class="glass-card rounded-2xl p-6 border border-emerald-500/30 space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+                <i data-lucide="sparkles" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white">Triple Protection Bundle</h4>
+                <p class="text-xs text-slate-400">Health (₹1 Crore) + Auto EV + Home</p>
+              </div>
+            </div>
+            <div class="flex justify-between items-baseline pt-2">
+              <span class="text-xs text-slate-400">Average Annual Saving:</span>
+              <span class="text-2xl font-extrabold text-emerald-400 font-heading">₹24,100 / yr</span>
+            </div>
+            <p class="text-xs text-slate-300">Single unified policy document, one annual renewal date, and prioritized VIP concierge claim desk.</p>
+            <a href="quote.html" class="block text-center py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-md transition-all">
+              Build Your Smart Bundle &rarr;
+            </a>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2 text-xs text-slate-300">
+            <div class="font-bold text-white flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-sky-400"></i> No Cancellation Penalties</div>
+            <p class="text-slate-400">Modify or adjust your bundle tiers anytime. Pro-rata refunds processed instantly.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOUNDER & VISION SPOTLIGHT (WITH REAL EXECUTIVE PHOTO) -->
+  <section class="py-20 border-t border-slate-800/60 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-sky-500/30 overflow-hidden relative">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
+          <!-- Authentic Founder Photo Portrait (Full Display) -->
+          <div class="lg:col-span-5 flex justify-center">
+            <div class="relative w-full max-w-sm">
+              <div class="rounded-3xl overflow-hidden border-2 border-sky-400/80 shadow-2xl shadow-sky-500/25 bg-slate-900">
+                <img 
+                  src="riyaz_founder.jpg" 
+                  alt="Shaik Riyaz - CEO & Founder, SecureLife Insurance Pvt. Ltd." 
+                  class="w-full h-auto object-contain rounded-3xl block"
+                />
+              </div>
+              <div class="absolute -bottom-3 -right-2 bg-emerald-500 text-slate-950 px-4 py-2 rounded-xl font-extrabold text-xs shadow-xl flex items-center gap-1.5 border border-emerald-300">
+                <i data-lucide="award" class="w-4 h-4"></i> Shaik Riyaz · CEO & Founder
+              </div>
+            </div>
+          </div>
+
+          <!-- Founder Bio & Quote -->
+          <div class="lg:col-span-7 space-y-5">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-bold uppercase">
+              Message from the Founder
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Built by Shaik Riyaz for Complete Peace of Mind</h2>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              "We founded <strong>SecureLife & Riyaz Insurance</strong> with a clear vision: insurance in India must be transparent, paperless, and instantaneous. When an emergency strikes, families deserve fast cashless approvals in under 15 minutes, zero hidden clauses, and complete empathy. Protect Today, Secure Tomorrow."
+            </p>
+            <blockquote class="border-l-4 border-sky-500 pl-4 py-2 text-slate-200 italic text-sm font-medium">
+              "Technology empowers us to settle claims in minutes — but our commitment to Indian families is what drives our excellence every single day."
+            </blockquote>
+            <div class="pt-2 flex flex-wrap items-center gap-6 text-xs text-slate-400">
+              <div><strong class="text-white block text-sm">Shaik Riyaz</strong><span>CEO & Founder, SecureLife Insurance Pvt. Ltd.</span></div>
+              <div class="h-8 w-px bg-slate-800 hidden sm:block"></div>
+              <div><strong class="text-white block text-sm">Founded</strong><span>2026</span></div>
+              <div class="h-8 w-px bg-slate-800 hidden sm:block"></div>
+              <div><strong class="text-white block text-sm">Headquarters</strong><span>Hyderabad, India</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REAL MEMBER TESTIMONIALS WITH REAL PORTRAITS -->
+  <section class="py-20 border-t border-slate-800/60 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="text-center space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-3.5 py-1.5 rounded-full border border-amber-500/20">
+          Real Policyholder Reviews
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Trusted by Over 10 Million Protected Families</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Review 1 -->
+        <div class="glass-card rounded-3xl p-6 space-y-4 border border-slate-800 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center gap-1 text-amber-400 text-sm">★★★★★</div>
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+              "When my father required unexpected cardiac hospitalization in Hyderabad, Riyaz Insurance approved cashless pre-authorization in just 11 minutes. Zero deposit out of pocket. Truly revolutionary!"
+            </p>
+          </div>
+          <div class="flex items-center gap-3 pt-3 border-t border-slate-800">
+            <img 
+              src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&q=80" 
+              alt="Arjun Kapoor" 
+              class="w-10 h-10 rounded-full object-cover border border-sky-400"
+            />
+            <div>
+              <div class="text-xs font-bold text-white">Arjun Kapoor</div>
+              <div class="text-[10px] text-slate-400">Health Diamond Member • Mumbai</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="glass-card rounded-3xl p-6 space-y-4 border border-slate-800 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center gap-1 text-amber-400 text-sm">★★★★★</div>
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+              "My EV sustained front sensor damage in a parking lot. I uploaded 3 photos to the Claims portal, and the AI damage survey approved the workshop claim of ₹64,200 within 2 hours."
+            </p>
+          </div>
+          <div class="flex items-center gap-3 pt-3 border-t border-slate-800">
+            <img 
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" 
+              alt="Priya Desai" 
+              class="w-10 h-10 rounded-full object-cover border border-emerald-400"
+            />
+            <div>
+              <div class="text-xs font-bold text-white">Priya Desai</div>
+              <div class="text-[10px] text-slate-400">Motor EV Elite Member • Hyderabad</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="glass-card rounded-3xl p-6 space-y-4 border border-slate-800 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center gap-1 text-amber-400 text-sm">★★★★★</div>
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+              "Switching our family and villa insurance to the Riyaz Triple Protection bundle saved us ₹28,000 this year. The digital ID card on my phone makes cashless hospital admission effortless."
+            </p>
+          </div>
+          <div class="flex items-center gap-3 pt-3 border-t border-slate-800">
+            <img 
+              src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=120&q=80" 
+              alt="Rohit Sharma" 
+              class="w-10 h-10 rounded-full object-cover border border-purple-400"
+            />
+            <div>
+              <div class="text-xs font-bold text-white">Rohit Sharma & Family</div>
+              <div class="text-[10px] text-slate-400">Triple Bundle Member • Delhi</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="py-20 border-t border-slate-800/60 relative z-10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      <h2 class="text-3xl sm:text-5xl font-extrabold text-white">Get Protected in Under 60 Seconds</h2>
+      <p class="text-slate-400 text-base max-w-xl mx-auto">No medical checkups required for standard covers. Instant digital policy delivery to your email and customer portal.</p>
+      <div class="flex flex-wrap justify-center gap-4 pt-2">
+        <a href="quote.html" class="px-9 py-4 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 text-slate-950 font-bold text-sm shadow-xl shadow-sky-500/25 hover:scale-105 transition-all">
+          Calculate Your Premium
+        </a>
+        <a href="contact.html" class="px-8 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-sm transition-all">
+          Speak with an Advisory Specialist
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 border-t border-slate-800/80 py-14 relative z-10 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+        <div class="col-span-2 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-emerald-400 flex items-center justify-center text-slate-950 font-extrabold text-lg">
+              RI
+            </div>
+            <div>
+              <div class="text-white font-bold text-sm">RIYAZ INSURANCE CO.</div>
+              <div class="text-slate-400 text-[10px]">Shaik Riyaz Assurance Group</div>
+            </div>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed max-w-sm">
+            Next-gen tech-powered insurance protecting families, automobiles, properties, and enterprises. 100% paperless assurance founded by Shaik Riyaz.
+          </p>
+          <div class="text-[11px] text-emerald-400 font-semibold flex items-center gap-1.5">
+            <i data-lucide="shield-check" class="w-4 h-4"></i> IRDAI Regulated & Licensed Assurance Entity
+          </div>
+        </div>
+
+        <div class="space-y-2.5">
+          <div class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Products</div>
+          <a href="products.html#health" class="block hover:text-sky-400 transition-colors">Health & Family</a>
+          <a href="products.html#auto" class="block hover:text-sky-400 transition-colors">Motor & EV Auto</a>
+          <a href="products.html#life" class="block hover:text-sky-400 transition-colors">Term Life Assurance</a>
+          <a href="products.html#home" class="block hover:text-sky-400 transition-colors">Home & Property</a>
+          <a href="products.html#business" class="block hover:text-sky-400 transition-colors">Commercial & Cyber</a>
+          <a href="products.html#travel" class="block hover:text-sky-400 transition-colors">Global Travel</a>
+        </div>
+
+        <div class="space-y-2.5">
+          <div class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Quick Access</div>
+          <a href="quote.html" class="block hover:text-sky-400 transition-colors">Instant Quote Engine</a>
+          <a href="claims.html" class="block hover:text-sky-400 transition-colors">File / Track Claim</a>
+          <a href="portal.html" class="block hover:text-sky-400 transition-colors">Member Portal</a>
+          <a href="about.html" class="block hover:text-sky-400 transition-colors">Founder & Leadership</a>
+          <a href="blog.html" class="block hover:text-sky-400 transition-colors">Knowledge Base</a>
+        </div>
+
+        <div class="space-y-2.5">
+          <div class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">24/7 Helpline</div>
+          <p class="text-white font-semibold">+1 (800) 555-RIYAZ</p>
+          <p class="text-slate-300">+91 40 555-RIYAZ</p>
+          <p class="text-slate-400">support@riyazinsurance.com</p>
+          <p class="text-emerald-400 font-bold mt-2">Emergency Hospital Desk Open 24/7</p>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-900 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-slate-500">
+        <div>&copy; 2026 Riyaz Insurance Co. Founded by Shaik Riyaz. All rights reserved.</div>
+        <div class="flex gap-4">
+          <a href="#" class="hover:text-slate-400">Privacy Policy</a>
+          <a href="#" class="hover:text-slate-400">Terms of Protection</a>
+          <a href="#" class="hover:text-slate-400">IRDAI Compliance</a>
+          <a href="#" class="hover:text-slate-400">Solvency Report 2026</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- FLOATING 24/7 AI ASSISTANT ("RIYAZ AI BOT") -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <!-- Chatbot Toggle Icon Button with Pulse Ring -->
+    <button id="chatbotToggle" class="w-14 h-14 rounded-full bg-gradient-to-r from-sky-500 to-emerald-400 text-slate-950 font-bold shadow-2xl flex items-center justify-center hover:scale-110 transition-all shadow-sky-500/40 relative">
+      <i data-lucide="message-square" class="w-6 h-6"></i>
+      <span class="absolute top-0 right-0 w-3.5 h-3.5 bg-emerald-400 rounded-full border-2 border-slate-950 animate-ping"></span>
+    </button>
+
+    <!-- Floating Chat Window -->
+    <div id="chatbotWindow" class="hidden absolute bottom-16 right-0 w-80 sm:w-96 glass-panel rounded-3xl shadow-2xl border border-slate-700/80 flex flex-col h-[500px] overflow-hidden">
+      
+      <!-- Chat Header -->
+      <div class="bg-slate-900 p-4 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-emerald-400 text-slate-950 flex items-center justify-center font-extrabold text-xs">
+            AI
+          </div>
+          <div>
+            <div class="text-xs font-bold text-white">Riyaz AI Assistant</div>
+            <div class="text-[10px] text-emerald-400 flex items-center gap-1.5 font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Online 24/7 Worldwide
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="botSoundToggle" class="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white" title="Toggle Sound Chime">
+            <i data-lucide="volume-2" class="w-3.5 h-3.5 text-emerald-400"></i>
+          </button>
+          <button id="closeChatbot" class="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Suggestion Chips -->
+      <div class="px-3 py-2 bg-slate-950/70 border-b border-slate-800/80 flex items-center gap-1.5 overflow-x-auto text-[10px]">
+        <button class="chat-quick-chip whitespace-nowrap px-2.5 py-1 rounded-full bg-sky-500/10 text-sky-300 border border-sky-500/30 hover:bg-sky-500/20" data-query="Calculate Health Quote">🏥 Health Quote</button>
+        <button class="chat-quick-chip whitespace-nowrap px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/20" data-query="Track claim status CLM-883921">🔍 Track Claim</button>
+        <button class="chat-quick-chip whitespace-nowrap px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/30 hover:bg-purple-500/20" data-query="Who is founder Shaik Riyaz?">👤 Founder Info</button>
+        <button class="chat-quick-chip whitespace-nowrap px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-300 border border-rose-500/30 hover:bg-rose-500/20" data-query="Emergency Helpline">🚨 Emergency</button>
+      </div>
+
+      <!-- Messages Stream -->
+      <div id="chatbotMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs">
+        <div class="flex justify-start mb-3">
+          <div class="bg-slate-900 text-slate-200 border border-slate-800 rounded-2xl rounded-tl-none px-4 py-3 max-w-[85%] shadow-md leading-relaxed">
+            <div class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider mb-1 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Riyaz AI Assistant
+            </div>
+            Hello! I'm your Riyaz AI Assurance Assistant. Ask me anything about instant quotes, cashless hospitals, EV motor policies, or claim tracking!
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Form -->
+      <form id="chatbotForm" class="p-3 bg-slate-900 border-t border-slate-800 flex gap-2">
+        <input 
+          type="text" 
+          id="chatbotInput" 
+          placeholder="Ask a question or type a claim ID..." 
+          class="flex-1 bg-slate-800 text-white text-xs rounded-xl px-3.5 py-2.5 focus:outline-none border border-slate-700 focus:border-sky-500 transition-colors"
+        />
+        <button type="submit" class="px-3.5 py-2.5 rounded-xl bg-sky-500 text-slate-950 font-bold text-xs hover:bg-sky-400 transition-all flex items-center justify-center">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Proposal / Quote Summary Modal -->
+  <div id="quoteSummaryModal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div class="glass-panel max-w-lg w-full rounded-3xl p-6 sm:p-8 border border-sky-500/40 shadow-2xl space-y-5" id="printableArea">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-emerald-400 text-slate-950 font-extrabold flex items-center justify-center">
+            RI
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">Digital Policy Proposal</h3>
+            <p class="text-xs text-slate-400">Riyaz Insurance Group • Ref: <span id="modalQuoteRef" class="text-sky-400 font-mono font-bold"></span></p>
+          </div>
+        </div>
+        <button id="closeQuoteModal" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="modalQuoteDetails" class="space-y-4"></div>
+
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <button onclick="window.print()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-2">
+          <i data-lucide="printer" class="w-3.5 h-3.5"></i> Print / Save PDF
+        </button>
+        <a href="portal.html" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 text-slate-950 font-bold text-xs shadow-md">
+          Proceed to Member Activation &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    lucide.createIcons();
+    document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+      document.getElementById('mobileMenu')?.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>
